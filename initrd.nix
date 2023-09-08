@@ -59,6 +59,6 @@
     };};
   };
   boot.initrd.postDeviceCommands = ''
-    /tools/nix/bin/nix run nixpkgs#htop
+    /tools/nix/bin/nix build github:noblepayne/nix-playground#nixosConfigurations.testsystem.config.system.build.toplevel
   '';
 }
