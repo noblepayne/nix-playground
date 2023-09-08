@@ -10,7 +10,7 @@
   boot.initrd.availableKernelModules = [ "ata_piix" "virtio_pci" "floppy" "sr_mod" "virtio_blk" ];
   boot.initrd.kernelModules = [ "virtio_dma_buf" "virtio_gpu" "virtio_console" "drm_kms_helper" "drm" "serio" "serio_raw" "atkbd" "psmouse" "i8042" ];
   boot.kernelModules = [ "kvm-intel" ];
-  boot.kernelParams = [ "nomodeset" "verbose" ]
+  boot.kernelParams = [ "nomodeset" "verbose" ];
   boot.extraModulePackages = [ ];
   swapDevices = [ ];
   nixpkgs.hostPlatform = "x86_64-linux";
