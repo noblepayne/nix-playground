@@ -52,6 +52,6 @@
     };};
   };
   boot.initrd.postDeviceCommands = ''
-    /tools/nix/bin/nix run nixpkgs#htop
+    /tools/nix/bin/nix run nixpkgs#hello
   '';
 }
