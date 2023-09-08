@@ -1,18 +1,24 @@
-{ config, pkgs, ... }:
+{ config, pkgs, modulesPath, ... }:
 
 {
   imports =
     [ 
       # Modules...
+      (modulesPath + "/profiles/qemu-guest.nix")
     ];
 
+  boot.initrd.availableKernelModules = [ "ata_piix" "virtio_pci" "floppy" "sr_mod" "virtio_blk" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
+  swapDevices = [ ];
+  nixpkgs.hostPlatform = "x86_64-linux";
   fileSystems."/" = {
     device = "none";
     fsType = "tmpfs";
     options = [ "size=3G" "mode=755" ]; # mode=755 so only root can write to those files
   };
   boot.loader.grub.device = "nodev";
-
 
   networking.hostName = "bootie";
 
