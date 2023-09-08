@@ -6,6 +6,12 @@
       # Modules...
     ];
 
+  fileSystems."/" = {
+    device = "none";
+    fsType = "tmpfs";
+    options = [ "size=3G" "mode=755" ]; # mode=755 so only root can write to those files
+  };
+
   networking.hostName = "bootie";
 
   # Enable networking
