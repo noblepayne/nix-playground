@@ -44,7 +44,7 @@
 
   boot.initrd.network.enable = true;
   boot.initrd.extraFiles = {
-    "/etc/nix/nix.conf" = {"source" = pkgs.writeTextFile {name = "nixconf"; text = "experimental-features = nix-command flakes";};};
+    "/etc/nix/nix.conf" = {"source" = pkgs.writeTextFile {name = "nixconf"; text = "experimental-features = nix-command flakes\nbuild-users-group =";};};
     "/tools/nix" = {"source" = pkgs.stdenv.mkDerivation {
       name = "wrappedNix";
       dontUnpack = true;
@@ -59,6 +59,6 @@
     };};
   };
   boot.initrd.postDeviceCommands = ''
-    /tools/nix/bin/nix build --no-write-lock-file github:noblepayne/nix-playground#nixosConfigurations.testsystem.config.system.build.toplevel
+    /tools/nix/bin/nix build --no-write-lock-file github:noblepayne/nix-playground#nixosConfigurations.testsystem.config.system.build.toplevel -o /tmp/toplevel
   '';
 }
