@@ -94,6 +94,7 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.motd = "===== WELCOME TO TEST SYSTEM FLAKE =====";
   users.users.wes = {
     isNormalUser = true;
     description = "wes";
