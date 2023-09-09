@@ -59,6 +59,9 @@
     };};
   };
   boot.initrd.postDeviceCommands = ''
+    mv /nix /mnt-root/nix
+    mkdir /nix
+    mount --bind /mnt-root/nix /nix
     /tools/nix/bin/nix build --no-write-lock-file github:noblepayne/nix-playground#nixosConfigurations.testsystem.config.system.build.toplevel -o /tmp/toplevel
   '';
 }
