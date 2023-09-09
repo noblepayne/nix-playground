@@ -94,7 +94,7 @@
     # cp /tmp/toplevel/init /mnt-root/init
     # TODO: copy rather than move? more memory pressure
     # TODO: use --store?
-    nix path-info -r /tmp/toplevel | while IFS= read -r filename; do echo $filename; mv $filename /mnt-root/nix/store; done
-    $ mount --bind /nix /mnt-root/nix
+    /tools/nix/bin/nix path-info -r /tmp/toplevel | while IFS= read -r filename; do echo $filename; mv $filename /mnt-root/nix/store; done
+    # mount --bind /nix /mnt-root/nix
   '';
 }
