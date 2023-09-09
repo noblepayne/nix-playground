@@ -54,6 +54,22 @@
 	'';
       };
     };
+    "/etc/passwd" = {
+      "source" = pkgs.writeTextFile {
+        name = "initpasswd";
+	text = ''
+	  root:x:0:0:root:/tmp:/bin/ash
+	'';
+      };
+    };
+    "/etc/group" = {
+      "source" = pkgs.writeTextFile {
+        name = "initgroup";
+	text = ''
+	  root:x:0:
+	'';
+      };
+    };
     "/tools/nix" = {"source" = pkgs.stdenv.mkDerivation {
       name = "wrappedNix";
       dontUnpack = true;
