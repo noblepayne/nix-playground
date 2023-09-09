@@ -44,7 +44,16 @@
 
   boot.initrd.network.enable = true;
   boot.initrd.extraFiles = {
-    "/etc/nix/nix.conf" = {"source" = pkgs.writeTextFile {name = "nixconf"; text = "experimental-features = nix-command flakes\nbuild-users-group =";};};
+    "/etc/nix/nix.conf" = {
+      "source" = pkgs.writeTextFile {
+        name = "nixconf";
+	text = ''
+	  experimental-features = nix-command flakes
+	  build-users-group =
+	  sandbox = false
+	'';
+      };
+    };
     "/tools/nix" = {"source" = pkgs.stdenv.mkDerivation {
       name = "wrappedNix";
       dontUnpack = true;
