@@ -60,6 +60,6 @@
   };
   boot.initrd.postDeviceCommands = ''
     mkdir -p /mnt-root/nix/store
-    /tools/nix/bin/nix build --store /mnt-root/nix/store  --no-write-lock-file github:noblepayne/nix-playground#nixosConfigurations.testsystem.config.system.build.toplevel -o /tmp/toplevel
+    /tools/nix/bin/nix build --store /mnt-root  --no-write-lock-file github:noblepayne/nix-playground#nixosConfigurations.testsystem.config.system.build.toplevel -o /tmp/toplevel
   '';
 }
