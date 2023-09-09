@@ -83,9 +83,12 @@
       '';
     };};
   };
-  boot.initrd.postDeviceCommands = ''
+  boot.initrd.postMountCommands = ''
     mount -o remount,size=2G /
     mount --bind / /
     /tools/nix/bin/nix build --no-write-lock-file github:noblepayne/nix-playground#nixosConfigurations.testsystem.config.system.build.toplevel -o /tmp/toplevel
+    mkdir -p /mnt-root/nix
+    mount --bind /nix /mnt-root/nix
+    cp /tmp/toplevel/init /mnt-root/init
   '';
 }
