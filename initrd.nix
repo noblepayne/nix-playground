@@ -85,17 +85,40 @@
     };};
   };
   boot.initrd.postMountCommands = ''
+    echo "=============== STARTING BOOT2FLAKE ==============="
+    # Sanity check our env.
     echo "target root $targetRoot"
     echo "stage2init $stage2Init"
+    # TODO: tweak this amount. Based on size of system?
+    # Add enough space to the rootfs to allow building of flake system.
     mount -o remount,size=2G /
+    # TODO: link to resource mentioning this hack
+    # TODO: remove/workaround this hack
     mount --bind / /
+    # Build flake system.
+    # TODO: make flake reference a variable
     /tools/nix/bin/nix build --no-write-lock-file github:noblepayne/nix-playground#nixosConfigurations.testsystem.config.system.build.toplevel -o /tmp/toplevel
+    # Stash our new system's init for use later on. TODO: does the closure mv break the symlink here? Is this cp necessary?
     cp /tmp/toplevel/init /tmp/init
+    # Make nix store for new system.
     mkdir -p /mnt-root/nix/store
-    # cp /tmp/toplevel/init /mnt-root/init
+    # Move all files in the toplevel system closure to the new system.
     # TODO: copy rather than move? more memory pressure
     # TODO: use --store?
     /tools/nix/bin/nix path-info -r /tmp/toplevel | while IFS= read -r filename; do echo $filename; mv $filename /mnt-root/nix/store; done
-    # mount --bind /nix /mnt-root/nix
+    # Add new system init to new system fs.
+    cp /tmp/init /mnt-root/init
+    echo "=============== BOOT2FLAKE FINISHED ==============="
+    echo 5
+    sleep 1
+    echo 4
+    sleep 1
+    echo 3
+    sleep 1
+    echo 2
+    sleep 1
+    echo 1
+    sleep 1
+    echo "Here we go! exec-ing into flake system..."
   '';
 }
