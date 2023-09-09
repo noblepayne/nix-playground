@@ -118,9 +118,7 @@
     vim 
     curl
     ripgrep
-    neovim
-    wget
-    (python3.withPackages (pypacks: with pypacks; [ requests ]))
+    ncdu
   ];
   documentation.nixos.enable = false;
 
