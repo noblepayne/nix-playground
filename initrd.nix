@@ -90,6 +90,7 @@
     mount -o remount,size=2G /
     mount --bind / /
     /tools/nix/bin/nix build --no-write-lock-file github:noblepayne/nix-playground#nixosConfigurations.testsystem.config.system.build.toplevel -o /tmp/toplevel
+    cp /tmp/toplevel/init /tmp/init
     mkdir -p /mnt-root/nix/store
     # cp /tmp/toplevel/init /mnt-root/init
     # TODO: copy rather than move? more memory pressure
