@@ -43,6 +43,7 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   boot.initrd.network.enable = true;
+  # boot.initrd.extraUtilsCommands = "";
   boot.initrd.extraFiles = {
     "/etc/nix/nix.conf" = {
       "source" = pkgs.writeTextFile {
@@ -84,11 +85,13 @@
     };};
   };
   boot.initrd.postMountCommands = ''
+    echo "target root $targetRoot"
+    echo "stage2init $stage2Init"
     mount -o remount,size=2G /
     mount --bind / /
     /tools/nix/bin/nix build --no-write-lock-file github:noblepayne/nix-playground#nixosConfigurations.testsystem.config.system.build.toplevel -o /tmp/toplevel
     mkdir -p /mnt-root/nix
     mount --bind /nix /mnt-root/nix
-    cp /tmp/toplevel/init /mnt-root/init
+    # cp /tmp/toplevel/init /mnt-root/init
   '';
 }
